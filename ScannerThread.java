@@ -11,6 +11,7 @@ public class ScannerThread extends Thread {
         this.line = null;
     }
 
+    //Repeatedly get next line in Scanner
     public void run() {
         while (!closed) {
             line = sc.nextLine();
@@ -18,10 +19,12 @@ public class ScannerThread extends Thread {
         sc.close();
     }
 
+    //Close thread
     public void close() {
         this.closed = true;
     }
 
+    //Allow access to line attribute
     public String getLine() {
         return line;
     }

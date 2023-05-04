@@ -12,6 +12,7 @@ public class Game {
         new Celebrity("Donald Trump", "He is orange")
     };
     
+    //Variables
     private List<Celebrity> celebrities;
     private Celebrity celeb;
     private String lastInput;
@@ -24,6 +25,7 @@ public class Game {
     }
 
     private void getNewCeleb() {
+        //Get new random celebrity and remove it from pool, if fails then exit
         try {
             celeb = celebrities.remove((int) (Math.random() * celebrities.size()));
         } catch (IndexOutOfBoundsException e) {
@@ -39,6 +41,7 @@ public class Game {
     }
 
     private void guess(String line) {
+        //Check if user's guess was correct
         if (line.equalsIgnoreCase(celeb.getName())) {
             getNewCeleb();
             score++;
@@ -48,6 +51,8 @@ public class Game {
     }
 
     public void play() {
+        //This thread is needed so that the program can be aborted
+        //without waiting for blocking request from Scanner
         ScannerThread thread = new ScannerThread();
         long timeStart = System.currentTimeMillis();
 
@@ -61,6 +66,7 @@ public class Game {
                 lastInput = newLine;
             }
 
+            //Prevent CPU Overload
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
